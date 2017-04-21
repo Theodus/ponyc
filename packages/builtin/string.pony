@@ -1475,7 +1475,8 @@ class StringRunes is Iterator[U32]
 primitive _UTF32Encoder
   fun encode(value: U32): (USize, U8, U8, U8, U8) =>
     """
-    Encode the code point into UTF-8. It returns a tuple with the size of the encoded data and then the data
+    Encode the code point into UTF-8. It returns a tuple with the size of the
+    encoded data and then the data.
     """
     if value < 0x80 then
       (1, value.u8(), 0, 0, 0)
