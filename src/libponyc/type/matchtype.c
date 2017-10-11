@@ -169,7 +169,7 @@ static matchtype_t is_typeparam_match_x(ast_t* operand, ast_t* pattern,
 
   // An unconstrained typeparam could match anything.
   if(operand_upper == NULL)
-    return MATCHTYPE_ACCEPT;
+    return MATCHTYPE_DENY;
 
   // Check if the constraint can match the pattern.
   matchtype_t ok = is_x_match_x(operand_upper, pattern, opt);

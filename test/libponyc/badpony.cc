@@ -954,3 +954,22 @@ TEST_F(BadPonyTest, ApplySugarInferredLambdaArgument)
 
   TEST_COMPILE(src);
 }
+
+TEST_F(BadPonyTest, UnconstrainedTypeParamMatch)
+{
+  // From issue #2182
+  const char* src =
+    "actor Main\n"
+    "  new create(env: Env) =>\n"
+    "    f[I32, Any ref](0)\n"
+
+    "  fun f[A, B](x: (A | B)): (A | B) =>\n"
+    "    match x\n"
+    "    | let a: A => a\n"
+    "    | let b: B => b\n"
+    "    end";
+
+  TEST_ERRORS_2(src,
+    "this capture violates capabilities, because the match would need to differentiate by capability at runtime instead of matching on type alone",
+    "this capture violates capabilities, because the match would need to differentiate by capability at runtime instead of matching on type alone");
+}

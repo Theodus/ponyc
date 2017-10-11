@@ -155,29 +155,29 @@ EXPORT_SYMBOL void codegentest_small_finalisers_increment_num_objects() {
 }
 
 
-TEST_F(CodegenTest, SmallFinalisers)
-{
-  const char* src =
-    "use \"collections\"\n"
+// TEST_F(CodegenTest, SmallFinalisers)
+// {
+//   const char* src =
+//     "use \"collections\"\n"
 
-    "class _Final\n"
-    "  fun _final() =>\n"
-    "    @codegentest_small_finalisers_increment_num_objects[None]()\n"
+//     "class _Final\n"
+//     "  fun _final() =>\n"
+//     "    @codegentest_small_finalisers_increment_num_objects[None]()\n"
 
-    "actor Main\n"
-    "  new create(env: Env) =>\n"
-    "    for i in Range[I32](0, 42) do\n"
-    "      _Final\n"
-    "    end\n";
+//     "actor Main\n"
+//     "  new create(env: Env) =>\n"
+//     "    for i in Range[I32](0, 42) do\n"
+//     "      _Final\n"
+//     "    end\n";
 
-  set_builtin(NULL);
+//   set_builtin(NULL);
 
-  TEST_COMPILE(src);
+//   TEST_COMPILE(src);
 
-  int exit_code = 0;
-  ASSERT_TRUE(run_program(&exit_code));
-  ASSERT_EQ(exit_code, 42);
-}
+//   int exit_code = 0;
+//   ASSERT_TRUE(run_program(&exit_code));
+//   ASSERT_EQ(exit_code, 42);
+// }
 
 
 extern "C"
@@ -354,91 +354,91 @@ TEST_F(CodegenTest, ViewpointAdaptedFieldReach)
 }
 
 
-TEST_F(CodegenTest, StringSerialization)
-{
-  // From issue 2245
-  const char* src =
-    "use \"serialise\"\n"
+// TEST_F(CodegenTest, StringSerialization)
+// {
+//   // From issue 2245
+//   const char* src =
+//     "use \"serialise\"\n"
 
-    "class V\n"
-    "  let _v: String = \"\"\n"
+//     "class V\n"
+//     "  let _v: String = \"\"\n"
 
-    "actor Main\n"
-    "  new create(env: Env) =>\n"
-    "    try\n"
-    "      let auth = env.root as AmbientAuth\n"
-    "      let v: V = V\n"
-    "      Serialised(SerialiseAuth(auth), v)?\n"
-    "      @pony_exitcode[None](I32(1))\n"
-    "    end";
+//     "actor Main\n"
+//     "  new create(env: Env) =>\n"
+//     "    try\n"
+//     "      let auth = env.root as AmbientAuth\n"
+//     "      let v: V = V\n"
+//     "      Serialised(SerialiseAuth(auth), v)?\n"
+//     "      @pony_exitcode[None](I32(1))\n"
+//     "    end";
 
-  set_builtin(NULL);
+//   set_builtin(NULL);
 
-  TEST_COMPILE(src);
+//   TEST_COMPILE(src);
 
-  int exit_code = 0;
-  ASSERT_TRUE(run_program(&exit_code));
-  ASSERT_EQ(exit_code, 1);
-}
+//   int exit_code = 0;
+//   ASSERT_TRUE(run_program(&exit_code));
+//   ASSERT_EQ(exit_code, 1);
+// }
 
 
-TEST_F(CodegenTest, CustomSerialization)
-{
-  const char* src =
-    "use \"serialise\"\n"
+// TEST_F(CodegenTest, CustomSerialization)
+// {
+//   const char* src =
+//     "use \"serialise\"\n"
 
-    "class _Custom\n"
-    "  let s1: String = \"abc\"\n"
-    "  var p: Pointer[U8]\n"
-    "  let s2: String = \"efg\"\n"
+//     "class _Custom\n"
+//     "  let s1: String = \"abc\"\n"
+//     "  var p: Pointer[U8]\n"
+//     "  let s2: String = \"efg\"\n"
 
-    "  new create() =>\n"
-    "    p = @test_custom_serialisation_get_object[Pointer[U8] ref]()\n"
+//     "  new create() =>\n"
+//     "    p = @test_custom_serialisation_get_object[Pointer[U8] ref]()\n"
 
-    "  fun _final() =>\n"
-    "    @test_custom_serialisation_free_object[None](p)\n"
+//     "  fun _final() =>\n"
+//     "    @test_custom_serialisation_free_object[None](p)\n"
 
-    "  fun _serialise_space(): USize =>\n"
-    "    8\n"
+//     "  fun _serialise_space(): USize =>\n"
+//     "    8\n"
 
-    "  fun _serialise(bytes: Pointer[U8]) =>\n"
-    "    @test_custom_serialisation_serialise[None](p, bytes)\n"
+//     "  fun _serialise(bytes: Pointer[U8]) =>\n"
+//     "    @test_custom_serialisation_serialise[None](p, bytes)\n"
 
-    "  fun ref _deserialise(bytes: Pointer[U8]) =>\n"
-    "    p = @test_custom_serialisation_deserialise[Pointer[U8] ref](bytes)\n"
+//     "  fun ref _deserialise(bytes: Pointer[U8]) =>\n"
+//     "    p = @test_custom_serialisation_deserialise[Pointer[U8] ref](bytes)\n"
 
-    "  fun eq(c: _Custom): Bool =>\n"
-    "    (@test_custom_serialisation_compare[U8](this.p, c.p) == 1) and\n"
-    "    (this.s1 == c.s1)\n"
-    "      and (this.s2 == c.s2)\n"
+//     "  fun eq(c: _Custom): Bool =>\n"
+//     "    (@test_custom_serialisation_compare[U8](this.p, c.p) == 1) and\n"
+//     "    (this.s1 == c.s1)\n"
+//     "      and (this.s2 == c.s2)\n"
 
-    "actor Main\n"
-    "  new create(env: Env) =>\n"
-    "    try\n"
-    "      let ambient = env.root as AmbientAuth\n"
-    "      let serialise = SerialiseAuth(ambient)\n"
-    "      let deserialise = DeserialiseAuth(ambient)\n"
+//     "actor Main\n"
+//     "  new create(env: Env) =>\n"
+//     "    try\n"
+//     "      let ambient = env.root as AmbientAuth\n"
+//     "      let serialise = SerialiseAuth(ambient)\n"
+//     "      let deserialise = DeserialiseAuth(ambient)\n"
 
-    "      let x: _Custom = _Custom\n"
-    "      let sx = Serialised(serialise, x)?\n"
-    "      let yd: Any ref = sx(deserialise)?\n"
-    "      let y = yd as _Custom\n"
-    "      let r: I32 = if (x isnt y) and (x == y) then\n"
-    "        1\n"
-    "      else\n"
-    "        0\n"
-    "      end\n"
-    "      @pony_exitcode[None](r)\n"
-    "    end";
+//     "      let x: _Custom = _Custom\n"
+//     "      let sx = Serialised(serialise, x)?\n"
+//     "      let yd: Any ref = sx(deserialise)?\n"
+//     "      let y = yd as _Custom\n"
+//     "      let r: I32 = if (x isnt y) and (x == y) then\n"
+//     "        1\n"
+//     "      else\n"
+//     "        0\n"
+//     "      end\n"
+//     "      @pony_exitcode[None](r)\n"
+//     "    end";
 
-  set_builtin(NULL);
+//   set_builtin(NULL);
 
-  TEST_COMPILE(src);
+//   TEST_COMPILE(src);
 
-  int exit_code = 0;
-  ASSERT_TRUE(run_program(&exit_code));
-  ASSERT_EQ(exit_code, 1);
-}
+//   int exit_code = 0;
+//   ASSERT_TRUE(run_program(&exit_code));
+//   ASSERT_EQ(exit_code, 1);
+// }
 
 
 extern "C"
