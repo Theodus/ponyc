@@ -17,7 +17,9 @@ class ListNode[A]
     """
     Return the item, if we have one, otherwise raise an error.
     """
-    _item as this->A
+    iftype A <: None then error
+    else _item
+    end
 
   fun ref update(value: (A | None)): A^ ? =>
     """
