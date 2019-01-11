@@ -159,6 +159,12 @@ static bool names_typealias(pass_opt_t* opt, ast_t** astp, ast_t* def,
   // reporting.
   ast_setpos(r_alias, ast_source(ast), ast_line(ast), ast_pos(ast));
 
+  printf("%s: %s\n",
+    ast_print_type(ast),
+    ast_print_type(r_alias));
+
+  // TODO: create type alias node
+
   // Replace this with the alias.
   ast_replace(astp, r_alias);
 

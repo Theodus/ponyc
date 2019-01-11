@@ -481,7 +481,7 @@ RULE(param_ref,
 
 
 GROUP(type,
-  type_infix, type_tuple, type_arrow, type_this, cap, nominal,
+  type_infix, type_tuple, type_arrow, type_this, cap, nominal, type_alias,
   type_param_ref, dontcare_type, fun_type, error_type, infer_type, lambda_type,
   barelambda_type, literal_type, opliteral_type, control_type);
 
@@ -534,6 +534,11 @@ RULE(nominal,
   CHILD(aliased, ephemeral, none)
   OPTIONAL(id, none), // Original package specifier (for error reporting)
   TK_NOMINAL);
+
+RULE(type_alias,
+  CHILD(nominal) // type alias
+  CHILD(type), // flattened type
+  TK_TYPEALIAS);
 
 RULE(type_param_ref,
   HAS_DATA  // Definition of referred type parameter
