@@ -536,8 +536,8 @@ RULE(nominal,
   TK_NOMINAL);
 
 RULE(type_alias,
-  CHILD(nominal) // type alias
-  CHILD(type), // flattened type
+  CHILD(nominal) // Type alias
+  CHILD(type), // Resolved type
   TK_TYPEALIAS);
 
 RULE(type_param_ref,

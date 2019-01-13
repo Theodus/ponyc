@@ -1657,6 +1657,13 @@ static bool is_x_sub_x(ast_t* sub, ast_t* super, check_cap_t check_cap,
   if((ast_id(super) == TK_DONTCARETYPE) || (ast_id(sub) == TK_DONTCARETYPE))
     return true;
 
+  // Replace type aliases with resolved type.
+  // TODO: use alias for error messages
+  if (ast_id(sub) == TK_TYPEALIAS)
+    sub = ast_childidx(sub, 1);
+  if (ast_id(super) == TK_TYPEALIAS)
+    super = ast_childidx(super, 1);
+
   switch(ast_id(sub))
   {
     case TK_UNIONTYPE:

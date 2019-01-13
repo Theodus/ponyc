@@ -244,6 +244,7 @@ static const lextoken_t abstract[] =
   //{ "isecttype", TK_ISECTTYPE },  // Now treated as the symbol '&'
   { "tupletype", TK_TUPLETYPE },
   { "nominal", TK_NOMINAL },
+  { "typealias", TK_TYPEALIAS },
   { "thistype", TK_THISTYPE },
   { "funtype", TK_FUNTYPE },
   { "lambdatype", TK_LAMBDATYPE },

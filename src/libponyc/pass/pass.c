@@ -170,14 +170,17 @@ static bool visit_pass(ast_t** astp, pass_opt_t* options, pass_id last_pass,
     return false;
   }
 
-  //fprintf(stderr, "Pass %s (last %s) on %s\n", pass_name(pass),
-  //  pass_name(last_pass), ast_get_print(*astp));
+  fprintf(stderr, "Pass %s (last %s) on %s\n",
+    pass_name(pass), pass_name(last_pass), ast_get_print(*astp));
 
   if(ast_visit(astp, pre_fn, post_fn, options, pass) != AST_OK)
   {
     *out_r = false;
     return false;
   }
+
+  if(options->check_tree)
+    check_tree(*astp, options);
 
   return true;
 }
