@@ -297,6 +297,9 @@ static token_id cap_from_constraint(ast_t* type)
 
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return cap_from_constraint(ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     {
       ast_t* child = ast_child(type);

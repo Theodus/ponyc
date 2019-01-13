@@ -56,6 +56,7 @@ static bool names_applycap(pass_opt_t* opt, ast_t* ast, ast_t* cap,
       return true;
     }
 
+    case TK_TYPEALIAS:
     case TK_ARROW:
       return names_applycap(opt, ast_childidx(ast, 1), cap, ephemeral);
 

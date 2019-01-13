@@ -562,6 +562,9 @@ bool sendable(ast_t* type)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return sendable(ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:

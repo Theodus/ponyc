@@ -270,6 +270,10 @@ ast_result_t pass_flatten(ast_t** astp, pass_opt_t* options)
 {
   ast_t* ast = *astp;
 
+  // TODO: is this fine?
+  while (ast_id(ast) == TK_TYPEALIAS)
+    ast = ast_childidx(ast, 1);
+
   switch(ast_id(ast))
   {
     case TK_UNIONTYPE:
@@ -307,6 +311,9 @@ ast_result_t pass_flatten(ast_t** astp, pass_opt_t* options)
       // An embedded field must have a known, class type.
       AST_GET_CHILDREN(ast, id, type, init);
       bool ok = true;
+
+      if(ast_id(type) == TK_TYPEALIAS)
+        type = ast_childidx(type, 1);
 
       if(ast_id(type) != TK_NOMINAL)
         ok = false;
