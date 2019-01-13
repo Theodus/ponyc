@@ -286,6 +286,9 @@ ast_t* consume_type(ast_t* type, token_id cap)
     case TK_DONTCARETYPE:
       return type;
 
+    case TK_TYPEALIAS:
+      return consume_type(ast_childidx(type, 1), cap);
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:

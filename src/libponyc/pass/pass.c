@@ -179,8 +179,8 @@ static bool visit_pass(ast_t** astp, pass_opt_t* options, pass_id last_pass,
     return false;
   }
 
-  if(options->check_tree)
-    check_tree(*astp, options);
+  // if(options->check_tree)
+  //   check_tree(*astp, options);
 
   return true;
 }

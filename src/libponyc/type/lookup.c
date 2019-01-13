@@ -528,6 +528,7 @@ static deferred_reification_t* lookup_base(pass_opt_t* opt, ast_t* from,
     case TK_NOMINAL:
       return lookup_nominal(opt, from, orig, type, name, errors);
 
+    case TK_TYPEALIAS:
     case TK_ARROW:
       return lookup_base(opt, from, orig, ast_childidx(type, 1), name, errors);
 

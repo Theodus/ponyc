@@ -979,6 +979,9 @@ static reach_type_t* add_type(reach_t* r, ast_t* type, pass_opt_t* opt)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return add_type(r, ast_childidx(type, 1), opt);
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
       return add_isect_or_union(r, type, opt);

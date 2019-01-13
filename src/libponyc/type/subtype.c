@@ -1817,6 +1817,9 @@ bool is_constructable(ast_t* type)
 
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return is_constructable(ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_TUPLETYPE:
       return false;
@@ -1950,6 +1953,9 @@ bool is_known(ast_t* type)
 
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return is_known(ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_TUPLETYPE:
       return false;
@@ -2010,6 +2016,9 @@ bool is_bare(ast_t* type)
 
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return is_bare(ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:

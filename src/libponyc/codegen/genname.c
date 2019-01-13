@@ -10,6 +10,9 @@ static void types_append(printbuf_t* buf, ast_t* elements);
 
 static void type_append(printbuf_t* buf, ast_t* type, bool first)
 {
+  if(ast_id(type) == TK_TYPEALIAS)
+    type = ast_childidx(type, 1);
+
   switch(ast_id(type))
   {
     case TK_UNIONTYPE:

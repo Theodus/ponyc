@@ -837,6 +837,10 @@ static matchtype_t is_x_match_x(ast_t* operand, ast_t* pattern,
   if(ast_id(pattern) == TK_DONTCARETYPE)
     return MATCHTYPE_ACCEPT;
 
+  // TODO: cleanup
+  if(ast_id(pattern) == TK_TYPEALIAS)
+    pattern = ast_childidx(pattern, 1);
+
   switch(ast_id(pattern))
   {
     case TK_UNIONTYPE:

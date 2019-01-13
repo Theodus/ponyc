@@ -451,6 +451,9 @@ static bool apply_cap(ast_t* type, token_id tcap, token_id teph)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return apply_cap(ast_childidx(type, 1), tcap, teph);
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     {

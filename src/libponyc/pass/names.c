@@ -167,6 +167,8 @@ static bool names_typealias(pass_opt_t* opt, ast_t** astp, ast_t* def,
   // Replace this with the alias.
   // ast_replace(astp, r_alias);
 
+  pony_assert(ast_id(*astp) != TK_TYPEALIAS);
+
   REPLACE(astp,
     NODE(TK_TYPEALIAS,
       TREE(ast)

@@ -408,6 +408,9 @@ static int uifset(pass_opt_t* opt, ast_t* type, lit_chain_t* chain)
 
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return uifset(opt, ast_childidx(type, 1), chain);
+
     case TK_UNIONTYPE:
       return uifset_union(opt, type, chain);
 
@@ -420,6 +423,7 @@ static int uifset(pass_opt_t* opt, ast_t* type, lit_chain_t* chain)
         ast_t* rhs = ast_childidx(type, 1);
         switch(ast_id(rhs))
         {
+          case TK_TYPEALIAS:
           case TK_NOMINAL:
           case TK_TYPEPARAMREF:
             return uifset(opt, rhs, chain);
