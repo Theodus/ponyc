@@ -735,6 +735,10 @@ static bool embed_fields(ast_t* entity, pass_opt_t* opt)
     if(ast_id(member) == TK_EMBED)
     {
       AST_GET_CHILDREN(member, f_id, f_type);
+
+      if(ast_id(f_type) == TK_TYPEALIAS)
+        f_type = ast_childidx(f_type, 1);
+
       ast_t* def = (ast_t*)ast_data(f_type);
       pony_assert(def != NULL);
 
