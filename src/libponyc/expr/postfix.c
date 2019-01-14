@@ -40,6 +40,9 @@ static bool constructor_type(pass_opt_t* opt, ast_t* ast, token_id cap,
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return constructor_type(opt, ast, cap, ast_childidx(type, 1), resultp);
+
     case TK_NOMINAL:
     {
       ast_t* def = (ast_t*)ast_data(type);

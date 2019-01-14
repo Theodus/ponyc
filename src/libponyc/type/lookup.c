@@ -507,6 +507,9 @@ static deferred_reification_t* lookup_base(pass_opt_t* opt, ast_t* from,
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return lookup_base(opt, from, orig, ast_childidx(type, 1), name, errors);
+
     case TK_UNIONTYPE:
       return lookup_union(opt, from, type, name, errors);
 

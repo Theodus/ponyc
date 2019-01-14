@@ -531,6 +531,12 @@ ast_result_t pass_expr(ast_t** astp, pass_opt_t* options)
   ast_t* ast = *astp;
   bool r = true;
 
+  if(ast_id(ast) == TK_TYPEALIAS)
+    ast = ast_childidx(ast, 1);
+
+  // TODO: remove
+  pony_assert(ast_id(ast) != TK_TYPEALIAS);
+
   switch(ast_id(ast))
   {
     case TK_PRIMITIVE:

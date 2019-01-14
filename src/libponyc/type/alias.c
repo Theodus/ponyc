@@ -226,6 +226,9 @@ ast_t* alias(ast_t* type)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return alias(ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:
@@ -562,6 +565,9 @@ bool sendable(ast_t* type)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return sendable(ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:

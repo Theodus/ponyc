@@ -12,6 +12,9 @@ static void type_append(printbuf_t* buf, ast_t* type, bool first)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return type_append(buf, ast_childidx(type, 1), first);
+
     case TK_UNIONTYPE:
     {
       // u3_Arg1_Arg2_Arg3

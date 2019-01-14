@@ -7,6 +7,9 @@ static bool safe_field_write(token_id cap, ast_t* type)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return safe_field_write(cap, ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:
@@ -130,6 +133,10 @@ bool safe_to_autorecover(ast_t* receiver_type, ast_t* type)
 {
   switch(ast_id(receiver_type))
   {
+    case TK_TYPEALIAS:
+      pony_assert(0); // TODO: remove?
+      // return safe_to_autorecover(ast_childidx(receiver_type, 1), type);
+
     case TK_ISECTTYPE:
     {
       ast_t* child = ast_child(receiver_type);

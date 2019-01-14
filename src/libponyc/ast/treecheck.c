@@ -11,7 +11,7 @@
 // error can be spotted in each run of the program, but can make errors far
 // easier to track down.
 // Use this when debugging, but leave disabled when committing.
-//#define IMMEDIATE_FAIL
+#define IMMEDIATE_FAIL // TODO: comment out
 
 
 typedef enum

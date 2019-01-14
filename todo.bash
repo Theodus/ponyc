@@ -10,9 +10,11 @@
 # - use alias for docgen
 # - allow finite recursive type aliases
 
-make -f Makefile-lib-llvm config=debug lto=yes LTO_PLUGIN=/usr/lib/LLVMgold.so -j8
+make -f Makefile-lib-llvm config=debug lto=yes LTO_PLUGIN=/usr/lib/LLVMgold.so
 
 if [[ $? == 0 ]]; then
   # ./build/debug/libponyc.tests --gtest_filter=BadPonyTest.*
-  ./build/debug/ponyc -r flatten packages/stdlib
+  # ./build/debug/libponyc.tests
+  # ./build/debug/ponyc -r expr packages/builtin
+  ./build/debug/libponyc.tests --gtest_filter=-BadPonyTest.*:CodegenTest.*
 fi

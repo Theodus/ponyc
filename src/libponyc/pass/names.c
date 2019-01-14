@@ -56,6 +56,7 @@ static bool names_applycap(pass_opt_t* opt, ast_t* ast, ast_t* cap,
       return true;
     }
 
+    case TK_TYPEALIAS:
     case TK_ARROW:
       return names_applycap(opt, ast_childidx(ast, 1), cap, ephemeral);
 
@@ -300,6 +301,10 @@ bool names_nominal(pass_opt_t* opt, ast_t* scope, ast_t** astp, bool expr)
 {
   ast_t* ast = *astp;
 
+  // TODO: remove, modify pass_names()?
+  if(ast_id(ast) == TK_TYPEALIAS || ast_id(scope) == TK_TYPEALIAS)
+    pony_assert(0);
+
   if(ast_data(ast) != NULL)
     return true;
 
@@ -379,6 +384,10 @@ bool names_nominal(pass_opt_t* opt, ast_t* scope, ast_t** astp, bool expr)
 ast_result_t pass_names(ast_t** astp, pass_opt_t* options)
 {
   (void)options;
+
+  // TODO: remove
+  if(ast_id(*astp) == TK_TYPEALIAS)
+    pony_assert(0);
 
   switch(ast_id(*astp))
   {
