@@ -56,6 +56,7 @@ static bool names_applycap(pass_opt_t* opt, ast_t* ast, ast_t* cap,
       return true;
     }
 
+    case TK_TYPEALIAS:
     case TK_ARROW:
       return names_applycap(opt, ast_childidx(ast, 1), cap, ephemeral);
 
@@ -147,6 +148,8 @@ static bool names_typealias(pass_opt_t* opt, ast_t** astp, ast_t* def,
 
   if(r_alias == NULL)
     return false;
+
+  pony_assert(ast_id(r_alias) != TK_TYPEALIAS);
 
   // Apply our cap and ephemeral to the result.
   if(!names_applycap(opt, r_alias, cap, eph))

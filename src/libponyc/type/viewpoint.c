@@ -18,6 +18,9 @@ ast_t* viewpoint_type(ast_t* l_type, ast_t* r_type)
 
   switch(ast_id(r_type))
   {
+    case TK_TYPEALIAS:
+      return viewpoint_type(l_type, ast_childidx(r_type, 1));
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:

@@ -14,5 +14,7 @@ make -f Makefile-lib-llvm config=debug lto=yes LTO_PLUGIN=/usr/lib/LLVMgold.so -
 
 if [[ $? == 0 ]]; then
   # ./build/debug/libponyc.tests --gtest_filter=BadPonyTest.*
-  ./build/debug/ponyc -r flatten packages/stdlib
+  # ./build/debug/ponyc -r flatten packages/stdlib
+
+  ./build/debug/libponyc.tests --gtest_filter=TypealiasTest.*
 fi

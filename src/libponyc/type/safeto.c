@@ -7,6 +7,9 @@ static bool safe_field_write(token_id cap, ast_t* type)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      return safe_field_write(cap, ast_childidx(type, 1));
+
     case TK_UNIONTYPE:
     case TK_ISECTTYPE:
     case TK_TUPLETYPE:

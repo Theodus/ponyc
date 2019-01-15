@@ -1873,6 +1873,7 @@ bool is_constructable(ast_t* type)
     case TK_TYPEPARAMREF:
       return is_constructable(typeparam_constraint(type));
 
+    case TK_TYPEALIAS:
     case TK_ARROW:
       return is_constructable(ast_childidx(type, 1));
 
@@ -1990,6 +1991,7 @@ bool is_known(ast_t* type)
       break;
     }
 
+    case TK_TYPEALIAS:
     case TK_ARROW:
       return is_known(ast_childidx(type, 1));
 
