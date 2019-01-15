@@ -2038,6 +2038,7 @@ bool is_bare(ast_t* type)
       return ast_has_annotation(def, "ponyint_bare");
     }
 
+    case TK_TYPEALIAS:
     case TK_ARROW:
       return is_bare(ast_childidx(type, 1));
 

@@ -1688,6 +1688,10 @@ static void print_type(printbuf_t* buffer, ast_t* type, bool print_cap)
 {
   switch(ast_id(type))
   {
+    case TK_TYPEALIAS:
+      // TODO: print alias
+      return print_type(buffer, ast_childidx(type, 1), print_cap);
+
     case TK_NOMINAL:
     {
       AST_GET_CHILDREN(type, package, id, typeargs, cap, ephemeral);

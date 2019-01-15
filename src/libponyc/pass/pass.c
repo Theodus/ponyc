@@ -170,8 +170,14 @@ static bool visit_pass(ast_t** astp, pass_opt_t* options, pass_id last_pass,
     return false;
   }
 
-  // fprintf(stderr, "Pass %s (last %s) on %s\n",
-  //   pass_name(pass), pass_name(last_pass), ast_get_print(*astp));
+  fprintf(stderr, "Pass %s (last %s) on %s\n",
+    pass_name(pass), pass_name(last_pass), ast_get_print(*astp));
+
+  if(!strcmp(ast_get_print(*astp), "call"))
+  {
+    // fprintf(stderr, "yup");
+    ast_printverbose(*astp);
+  }
 
   if(ast_visit(astp, pre_fn, post_fn, options, pass) != AST_OK)
   {

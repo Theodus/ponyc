@@ -301,9 +301,15 @@ bool names_nominal(pass_opt_t* opt, ast_t* scope, ast_t** astp, bool expr)
 {
   ast_t* ast = *astp;
 
+  if(ast_id(scope) == TK_TYPEALIAS)
+    scope = ast_childidx(scope, 1);
+
+  if(ast_id(ast) == TK_TYPEALIAS)
+    ast = ast_childidx(ast, 1);
+
   // TODO: remove, modify pass_names()?
-  if(ast_id(ast) == TK_TYPEALIAS || ast_id(scope) == TK_TYPEALIAS)
-    pony_assert(0);
+  pony_assert(ast_id(scope) != TK_TYPEALIAS);
+  pony_assert(ast_id(ast) != TK_TYPEALIAS);
 
   if(ast_data(ast) != NULL)
     return true;
@@ -384,10 +390,6 @@ bool names_nominal(pass_opt_t* opt, ast_t* scope, ast_t** astp, bool expr)
 ast_result_t pass_names(ast_t** astp, pass_opt_t* options)
 {
   (void)options;
-
-  // TODO: remove
-  if(ast_id(*astp) == TK_TYPEALIAS)
-    pony_assert(0);
 
   switch(ast_id(*astp))
   {

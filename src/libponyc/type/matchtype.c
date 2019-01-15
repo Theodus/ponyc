@@ -839,6 +839,10 @@ static matchtype_t is_x_match_x(ast_t* operand, ast_t* pattern,
 
   switch(ast_id(pattern))
   {
+    case TK_TYPEALIAS:
+      return is_x_match_x(operand, ast_childidx(pattern, 1),
+        errorf, report_reject, opt);
+
     case TK_UNIONTYPE:
       return is_x_match_union(operand, pattern, errorf, report_reject, opt);
 

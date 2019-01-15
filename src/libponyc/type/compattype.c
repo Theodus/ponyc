@@ -208,6 +208,9 @@ static bool is_nominal_compat_x(ast_t* a, ast_t* b)
 {
   switch(ast_id(b))
   {
+    case TK_TYPEALIAS:
+      return is_nominal_compat_x(a, ast_childidx(b, 1));
+
     case TK_UNIONTYPE:
       return is_union_compat_x(b, a);
 
